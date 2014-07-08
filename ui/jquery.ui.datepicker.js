@@ -1629,7 +1629,7 @@ $.extend(Datepicker.prototype, {
 			this._getFormatConfig(inst)));
 
 		prev = (this._canAdjustMonth(inst, -1, drawYear, drawMonth) ?
-			"<a class='ui-datepicker-prev ui-corner-all' data-handler='prev' data-event='click'" +
+			"<a href='#' class='ui-datepicker-prev ui-corner-all' data-handler='prev' data-event='click'" +
 			" title='" + prevText + "'><span class='ui-icon ui-icon-circle-triangle-" + ( isRTL ? "e" : "w") + "'>" + prevText + "</span></a>" :
 			(hideIfNoPrevNext ? "" : "<a class='ui-datepicker-prev ui-corner-all ui-state-disabled' title='"+ prevText +"'><span class='ui-icon ui-icon-circle-triangle-" + ( isRTL ? "e" : "w") + "'>" + prevText + "</span></a>"));
 
@@ -1639,7 +1639,7 @@ $.extend(Datepicker.prototype, {
 			this._getFormatConfig(inst)));
 
 		next = (this._canAdjustMonth(inst, +1, drawYear, drawMonth) ?
-			"<a class='ui-datepicker-next ui-corner-all' data-handler='next' data-event='click'" +
+			"<a href='#' class='ui-datepicker-next ui-corner-all' data-handler='next' data-event='click'" +
 			" title='" + nextText + "'><span class='ui-icon ui-icon-circle-triangle-" + ( isRTL ? "w" : "e") + "'>" + nextText + "</span></a>" :
 			(hideIfNoPrevNext ? "" : "<a class='ui-datepicker-next ui-corner-all ui-state-disabled' title='"+ nextText + "'><span class='ui-icon ui-icon-circle-triangle-" + ( isRTL ? "w" : "e") + "'>" + nextText + "</span></a>"));
 
@@ -1694,15 +1694,15 @@ $.extend(Datepicker.prototype, {
 					(/all|right/.test(cornerClass) && row === 0 ? (isRTL ? prev : next) : "") +
 					this._generateMonthYearHeader(inst, drawMonth, drawYear, minDate, maxDate,
 					row > 0 || col > 0, monthNames, monthNamesShort) + // draw month headers
-					"</div><table class='ui-datepicker-calendar'><thead>" +
-					"<tr>";
+					"</div><table class='ui-datepicker-calendar'><thead role='presentation'>" +
+					"<tr role='row'>";
 				thead = (showWeek ? "<th class='ui-datepicker-week-col'>" + this._get(inst, "weekHeader") + "</th>" : "");
 				for (dow = 0; dow < 7; dow++) { // days of the week
 					day = (dow + firstDay) % 7;
-					thead += "<th" + ((dow + firstDay + 6) % 7 >= 5 ? " class='ui-datepicker-week-end'" : "") + ">" +
+					thead += "<th role='columnheader' " + ((dow + firstDay + 6) % 7 >= 5 ? " class='ui-datepicker-week-end'" : "") + ">" +
 						"<span title='" + dayNames[day] + "'>" + dayNamesMin[day] + "</span></th>";
 				}
-				calender += thead + "</tr></thead><tbody>";
+				calender += thead + "</tr></thead><tbody role='presentation'>";
 				daysInMonth = this._getDaysInMonth(drawYear, drawMonth);
 				if (drawYear === inst.selectedYear && drawMonth === inst.selectedMonth) {
 					inst.selectedDay = Math.min(inst.selectedDay, daysInMonth);
@@ -1713,8 +1713,8 @@ $.extend(Datepicker.prototype, {
 				this.maxRows = numRows;
 				printDate = this._daylightSavingAdjust(new Date(drawYear, drawMonth, 1 - leadDays));
 				for (dRow = 0; dRow < numRows; dRow++) { // create date picker rows
-					calender += "<tr>";
-					tbody = (!showWeek ? "" : "<td class='ui-datepicker-week-col'>" +
+					calender += "<tr role='row'>";
+					tbody = (!showWeek ? "" : "<td class='ui-datepicker-week-col' role='gridcell' >" +
 						this._get(inst, "calculateWeek")(printDate) + "</td>");
 					for (dow = 0; dow < 7; dow++) { // create date picker days
 						daySettings = (beforeShowDay ?
